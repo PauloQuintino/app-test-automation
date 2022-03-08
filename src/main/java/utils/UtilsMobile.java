@@ -4,9 +4,13 @@ import Core.DriverFactory;
 import beans.LoggerHelper;
 import com.sun.javafx.scene.traversal.Direction;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
 import java.io.IOException;
@@ -361,4 +365,19 @@ public class UtilsMobile {
         }
     }
 
+    public boolean waitUntilsExist(AndroidElement element) {
+
+        boolean elementIsFound = false;
+        WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), 10);
+
+        try {
+            wait.until(ExpectedConditions.visibilityOf(element));
+            elementIsFound = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return elementIsFound;
+    }
 }

@@ -16,7 +16,7 @@ import static Core.DriverFactory.getDriver;
 
 public class ProductsHome extends BasePage {
 
-    public ProductsHome(){
+    public ProductsHome() {
         PageFactory.initElements(new AppiumFieldDecorator(getDriver()), this);
     }
 
@@ -29,20 +29,20 @@ public class ProductsHome extends BasePage {
     @AndroidFindBy(xpath = "//android.view.ViewGroup//android.widget.ImageView//following-sibling::android.widget.TextView")
     private List<AndroidElement> listProducts;
 
-    public void validateMainPage(){
+    public void validateMainPage() {
         logger.info("Validando que app está na home");
+        utils.waitUntilsExist(titleProducts);
         Assert.assertEquals("Products", titleProducts.getText());
         logger.info("Home validada com sucesso!!");
     }
 
-    public void validateProductsList(){
+    public void validateProductsList() {
         logger.info("Validando lista de produtos na home");
-
-        while (listProducts.size() < 5){
+        utils.waitUntilsExist(titleProducts);
+        while (listProducts.size() < 5) {
             logger.info("Fazendo swipe na tela...");
             utils.swipeScreen(Direction.UP);
         }
-
         Assert.assertEquals(5, listProducts.size());
         logger.info("Lista de produtos na home validado com sucesso!!");
     }
