@@ -1,22 +1,13 @@
 package pages;
 
-import beans.Logger;
+import beans.LoggerHelper;
 import beans.ValuesHelper;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-
-
-public class BasePage extends Logger {
+public class BasePage {
 
 	private ValuesHelper helper = new ValuesHelper();
 

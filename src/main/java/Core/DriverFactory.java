@@ -33,9 +33,9 @@ public class DriverFactory {
         cap.setCapability("udid", "emulator-5554");
         cap.setCapability("platformVersion", "11");
         cap.setCapability("platformName", "Android");
-        cap.setCapability("app", path + "/Apps/app-dev-release-v10122.apk");
-        cap.setCapability("appPackage", "com.br.smiles.dev");
-        cap.setCapability("appActivity", "com.br.smiles.MainActivity");
+        cap.setCapability("app", path + "/Apps/Android-MyDemoAppRN.1.1.0.build-226.apk");
+        cap.setCapability("appPackage", "com.saucelabs.mydemoapp.rn");
+        cap.setCapability("appActivity", ".MainActivity");
         cap.setCapability("newCommandTimeout", 3000);
         try {
             driver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"), cap);
