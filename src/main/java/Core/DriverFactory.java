@@ -29,13 +29,13 @@ public class DriverFactory {
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("automationName", "UiAutomator2");
         cap.setCapability("autoGrantPermissions", true);
-        cap.setCapability("deviceName", "emulator-5554");
-        cap.setCapability("udid", "emulator-5554");
-        cap.setCapability("platformVersion", "11");
+        cap.setCapability("deviceName", "11d61460");
+        cap.setCapability("udid", "11d61460");
+        cap.setCapability("platformVersion", "10");
         cap.setCapability("platformName", "Android");
-        cap.setCapability("app", path + "/Apps/Android-MyDemoAppRN.1.1.0.build-226.apk");
-        cap.setCapability("appPackage", "com.saucelabs.mydemoapp.rn");
-        cap.setCapability("appActivity", ".MainActivity");
+        cap.setCapability("app", path + "/Apps/app-hml-release-1.0.174.apk");
+        cap.setCapability("appPackage", "com.br.smiles.hml");
+        cap.setCapability("appActivity", "com.br.smiles.MainActivity");
         cap.setCapability("newCommandTimeout", 3000);
         try {
             driver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"), cap);

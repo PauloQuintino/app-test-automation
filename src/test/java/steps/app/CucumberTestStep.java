@@ -25,4 +25,15 @@ public class CucumberTestStep {
     public void deveSerApresentadosProdutosNaHome(){
         productsHome.validateProductsList();
     }
+
+    @Dado("que o usuário acesse a home deslogada")
+    public void queOUsuarioAcessAHomeDeslogada() throws InterruptedException {
+        home.validateHomePage();
+    }
+
+    @Entao("devo visualizar os cards de fidelidade")
+    public void devoVisualizarOsCardsDeFidelidade(){
+        home.validateFidelityCards();
+    }
+
 }

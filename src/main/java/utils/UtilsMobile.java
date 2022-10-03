@@ -3,12 +3,17 @@ package utils;
 import Core.DriverFactory;
 import beans.LoggerHelper;
 import com.sun.javafx.scene.traversal.Direction;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -19,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class UtilsMobile {
 
@@ -365,6 +371,79 @@ public class UtilsMobile {
         }
     }
 
+    public void swipeScreen(int startX, int endX, int startY, int endY) {
+        AndroidDriver<MobileElement> driver = DriverFactory.getDriver();
+        new TouchAction(driver).press(PointOption.point(startX, startY))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).moveTo(PointOption.point(endX, endY))
+                .release().perform();
+    }
+
+    public void swipeElement(AndroidElement elemento, Direction direction, long duration) {
+
+        Dimension size = null;
+        Point location = null;
+        AndroidDriver<MobileElement> driver = null;
+        size = elemento.getSize();
+        location = elemento.getLocation();
+
+        int startX = 0;
+        int endX = 0;
+        int startY = 0;
+        int endY = 0;
+
+        switch (direction.toString()) {
+            case "LEFT":
+                startY = (int) location.getY() + (int) (size.height / 2);
+                startX = (int) location.getX() + (int) (size.width * 0.70);
+                endX = (int) location.getX() + (int) (size.width * 0.20);
+                endY = startY;
+                break;
+
+            case "RIGHT":
+                startY = (int) location.getY() + (int) (size.height / 2);
+                startX = (int) location.getX() + (int) (size.width * 0.25);
+                endX = (int) location.getX() + (int) (size.width * 0.75);
+                endY = startY;
+                break;
+
+            case "UP":
+                endY = (int) location.getY() + (int) (size.height * 0.80);
+                startY = (int) (size.height * 0.20);
+                startX = (int) location.getX() + (size.width / 2);
+                endX = startX;
+                break;
+
+            case "DOWN":
+                startY = (int) location.getY() + (int) (size.height * 0.80);
+                endY = (int) location.getY() + (int) (size.height * 0.20);
+                startX = (int) location.getX() + (int) (size.width / 2);
+                endX = startX;
+                break;
+        }
+
+        TouchAction touchAction = new TouchAction(DriverFactory.getDriver());
+
+        touchAction.press(PointOption.point(startX, startY))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(duration)))
+                .moveTo(PointOption.point(endX, endY)).release().perform();
+    }
+
+    public void swipeToElement(MobileElement element, Direction direction, int timeout) {
+        boolean textFound = false;
+        int counter = 0;
+
+        while (!textFound && counter <= timeout) {
+
+            if (elementExists(element, 5)) {
+                textFound = true;
+                break;
+            } else {
+                swipeScreen(direction);
+                counter++;
+            }
+        }
+    }
+
     public boolean waitUntilsExist(AndroidElement element) {
 
         boolean elementIsFound = false;
@@ -380,4 +459,38 @@ public class UtilsMobile {
 
         return elementIsFound;
     }
+
+    public static void zeraImplicityWaitsProperties() {
+
+        try {
+            DriverFactory.getDriver().manage().timeouts().implicitlyWait(0,TimeUnit.SECONDS);
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    public static boolean elementExists(MobileElement element, long timeout) {
+
+        boolean result = false;
+
+        try {
+
+            zeraImplicityWaitsProperties();
+
+            WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), timeout, 0 );
+            wait.until(ExpectedConditions.visibilityOf(element));
+
+            result = true;
+
+        } catch (TimeoutException e) {
+
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+
+        return result;
+
+    }
+
+
 }

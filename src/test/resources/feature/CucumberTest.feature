@@ -11,3 +11,8 @@ Funcionalidade: Teste
   Cenario: Validar MyDemoApp Home
     Dado que estou na home do app MyDemoApp
     Entao deve ser apresentados produtos na home
+
+  @ct-03
+  Cenario: Home Deslogada - Apresentar area para Turbine seus Sonhos
+    Dado que o usuário acesse a home deslogada
+    Entao devo visualizar os cards de fidelidade
