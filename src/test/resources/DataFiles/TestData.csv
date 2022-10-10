@@ -1,4 +1,5 @@
-CT,User,Password
-CT1,paulo,123456
-CT2,juca,999999
-login-csv,automatomati@gmail.com,12345
+CT;User;Password
+CT1;paulo;123456
+CT2;juca;999999
+login-csv;automatomati@gmail.com;12345
+ct-04;107457232;1010

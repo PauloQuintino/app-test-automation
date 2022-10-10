@@ -444,6 +444,55 @@ public class UtilsMobile {
         }
     }
 
+    public void swipeLongPress(AndroidElement element, String direction) {
+
+        Dimension size = null;
+        Point location = null;
+        AndroidDriver<MobileElement> driver = null;
+        size = element.getSize();
+        location = element.getLocation();
+        driver = DriverFactory.getDriver();
+
+        int startX = 0;
+        int endX = 0;
+        int startY = 0;
+        int endY = 0;
+
+        switch (direction) {
+            case "LEFT":
+                startY = location.getY() + size.height / 2;
+                startX = location.getX() + (int) ((double) size.width * 0.7);
+                System.out.println("startX => " + startX);
+                endX = 200;
+                endY = startY;
+                break;
+            case "RIGHT":
+                startY = location.getY() + size.height / 2;
+                startX = location.getX() + (int) ((double) size.width * 0.25);
+                //endX = location.getX() + (int)((double)size.width * 0.75);
+                System.out.println("startX => " + startX);
+                endX = location.getX() + 450;
+                System.out.println("endX => " + endX);
+                endY = startY;
+                break;
+            case "UP":
+                endY = location.getY() + (int) ((double) size.height * 0.8);
+                startY = (int) ((double) size.height * 0.2);
+                startX = location.getX() + size.width / 2;
+                endX = startX;
+                break;
+            case "DOWN":
+                startY = location.getY() + (int) ((double) size.height * 0.8);
+                endY = location.getY() + (int) ((double) size.height * 0.2);
+                startX = location.getX() + size.width / 2;
+                endX = startX;
+        }
+
+        new TouchAction(driver).longPress(PointOption.point(startX, startY)).moveTo(PointOption.point(endX, endY)).release().perform();
+
+    }
+
+
     public boolean waitUntilsExist(AndroidElement element) {
 
         boolean elementIsFound = false;

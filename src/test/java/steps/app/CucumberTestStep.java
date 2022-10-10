@@ -1,6 +1,7 @@
 package steps.app;
 
 import io.cucumber.java.pt.Dado;
+import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
 import pages.CucumberTestActivity;
 import pages.ProductsHome;
@@ -35,5 +36,12 @@ public class CucumberTestStep {
     public void devoVisualizarOsCardsDeFidelidade(){
         home.validateFidelityCards();
     }
+
+    @E("realize o login")
+    public void realizeOLogin(){
+        home.acessLogin();
+        home.login();
+    }
+
 
 }

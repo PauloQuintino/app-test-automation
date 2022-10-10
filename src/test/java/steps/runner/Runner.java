@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:test-output", "json:target/cucumber.json"},
         features = {"src//test//resources//feature"},
         glue = {"steps", "steps.runner.Hooks"},
-        tags = {"@ct-03"}
+        tags = {"@ct-04"}
 )
 public class Runner {
 
